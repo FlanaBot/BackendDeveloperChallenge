@@ -1,0 +1,106 @@
+@HostAddress = http://localhost:5094
+
+### Reset database
+POST {{HostAddress}}/database/clear
+Accept: application/json
+
+###
+
+### Seed database with hotels and rooms
+POST {{HostAddress}}/database/seed
+Accept: application/json
+
+###
+
+### Get hotel by name
+GET {{HostAddress}}/hotels?Name=Hotel%20ABC
+Accept: application/json
+
+###
+
+### Get hotel DEF
+GET {{HostAddress}}/hotels?Name=Hotel%20DEF
+Accept: application/json
+
+###
+
+### Search available rooms (2 guests, specific dates)
+GET {{HostAddress}}/rooms?fromDate=2026-04-30&toDate=2026-05-02&guestCount=2
+Accept: application/json
+
+###
+
+### Search available rooms (1 guest, longer stay)
+GET {{HostAddress}}/rooms?fromDate=2026-05-01&toDate=2026-05-10&guestCount=1
+Accept: application/json
+
+###
+
+### Create booking
+POST {{HostAddress}}/hotels/1/rooms/3/bookings
+Content-Type: application/json
+
+{
+  "guestCount": 2,
+  "fromDate": "2026-06-01",
+  "toDate": "2026-06-05"
+}
+
+###
+
+### Get booking by ID
+GET {{HostAddress}}/bookings/1
+Accept: application/json
+
+###
+
+### Create booking — single room
+POST {{HostAddress}}/hotels/1/rooms/1/bookings
+Content-Type: application/json
+
+{
+  "guestCount": 1,
+  "fromDate": "2026-07-10",
+  "toDate": "2026-07-15"
+}
+
+###
+
+### Create booking — validation error: past date
+POST {{HostAddress}}/hotels/1/rooms/1/bookings
+Content-Type: application/json
+
+{
+  "guestCount": 1,
+  "fromDate": "2020-01-01",
+  "toDate": "2020-01-05"
+}
+
+###
+
+### Create booking — validation error: guest count exceeds capacity
+POST {{HostAddress}}/hotels/1/rooms/1/bookings
+Content-Type: application/json
+
+{
+  "guestCount": 5,
+  "fromDate": "2026-08-01",
+  "toDate": "2026-08-05"
+}
+
+###
+
+### Create booking — unknown room (expect 404)
+POST {{HostAddress}}/hotels/1/rooms/99999/bookings
+Content-Type: application/json
+
+{
+  "guestCount": 1,
+  "fromDate": "2026-09-01",
+  "toDate": "2026-09-05"
+}
+
+### Get Swagger File
+
+GET {{HostAddress}}/swagger/v1/swagger.json 
+Content-Type: application/json
