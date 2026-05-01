@@ -11,8 +11,15 @@ namespace HotelBooking.Endpoints
 
             group.MapPost("/clear", async (HotelBookingContext db) =>
             {
-                await db.Database.EnsureDeletedAsync();
-                await db.Database.EnsureCreatedAsync();
+                await db.Bookings.ExecuteDeleteAsync();
+                await db.RoomAvailabilities.ExecuteDeleteAsync();
+                await db.Rooms.ExecuteDeleteAsync();
+                await db.Hotels.ExecuteDeleteAsync();
+                await db.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('dbo.Bookings', RESEED, 0);");
+                await db.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('dbo.RoomAvailabilities', RESEED, 0);");
+                await db.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('dbo.Rooms', RESEED, 0);");
+                await db.Database.ExecuteSqlRawAsync("DBCC CHECKIDENT ('dbo.Hotels', RESEED, 0);");
+
                 return Results.Ok();
             })
             .WithName("ClearDatabase")

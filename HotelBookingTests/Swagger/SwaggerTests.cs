@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
-namespace HotelBookingTests.Swagger
+namespace HotelBooking.Tests.Swagger
 {
     [Collection("Integration")]
     public class SwaggerTests : IClassFixture<WebApplicationFactory<Program>>

@@ -1,4 +1,5 @@
 @HostAddress = http://localhost:5094
+#@HostAddress = https://hotelbooking-c08f7b56.azurewebsites.net/
 
 ### Reset database
 POST {{HostAddress}}/database/clear
@@ -25,13 +26,13 @@ Accept: application/json
 ###
 
 ### Search available rooms (2 guests, specific dates)
-GET {{HostAddress}}/rooms?fromDate=2026-04-30&toDate=2026-05-02&guestCount=2
+GET {{HostAddress}}/rooms?fromDate=2026-06-01&toDate=2026-06-02&guestCount=2
 Accept: application/json
 
 ###
 
 ### Search available rooms (1 guest, longer stay)
-GET {{HostAddress}}/rooms?fromDate=2026-05-01&toDate=2026-05-10&guestCount=1
+GET {{HostAddress}}/rooms?fromDate=2026-06-01&toDate=2026-06-10&guestCount=1
 Accept: application/json
 
 ###

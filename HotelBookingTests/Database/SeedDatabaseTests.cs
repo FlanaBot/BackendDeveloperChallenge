@@ -20,6 +20,8 @@ namespace HotelBooking.Tests
         {
             var client = _factory.CreateClient();
 
+            await client.PostAsync("/database/clear", null);
+
             var response = await client.PostAsync("/database/seed", null);
             response.EnsureSuccessStatusCode();
 
@@ -29,6 +31,19 @@ namespace HotelBooking.Tests
             Assert.Equal(3, context.Hotels.Count());
             Assert.Equal(3 * 6, context.Rooms.Count());
             Assert.Equal(3 * 6, context.RoomAvailabilities.Count());
+        }
+
+        [Fact]
+        public async Task SeedDatabase_Returns400_WhenDataAlreadyExists()
+        {
+            var client = _factory.CreateClient();
+
+            await client.PostAsync("/database/clear", null);
+            await client.PostAsync("/database/seed", null);
+
+            var response = await client.PostAsync("/database/seed", null);
+
+            Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
         }
     }
 }

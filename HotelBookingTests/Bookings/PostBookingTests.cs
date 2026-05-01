@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace HotelBooking.Tests
+namespace HotelBooking.Tests.Bookings
 {
     [Collection("Integration")]
     public class PostBookingTests : IClassFixture<BookingFixture>

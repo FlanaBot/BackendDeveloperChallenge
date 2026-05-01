@@ -4,7 +4,7 @@ using HotelBooking.DTOs;
 using HotelBookingTests.Common;
 using Xunit;
 
-namespace HotelBookingTests.Hotel
+namespace HotelBooking.Tests.Hotel
 {
     [Collection("Integration")]
     public class GetHotelTests : IClassFixture<SeededDatabaseFixture>
